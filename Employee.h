@@ -14,7 +14,7 @@ private:
 	Department _dept;
 	bool _isEmployed = true;
 public:
-	virtual void setIncentive(double amount) = 0;
+	virtual void setPayment(double amount) = 0;
 	virtual double getIncentive() = 0;
 	void setCompany(std::string name) { _compName = name; };
 	std::string getCompany() { return _compName; }
@@ -27,11 +27,13 @@ public:
 		}
 		return false;
 	}
+
 	int getEmployeeID() { return _empID; }
 
 	void setDepartment(Department d) {
 		_dept = d;
 	}
+
 	Department getDepartment() { return _dept; }
 
 	bool isFired() { return _isEmployed; }
@@ -50,7 +52,6 @@ public:
 };
 
 // Add an employee to company
-// https://docs.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk2005?f1url=https%3A%2F%2Fmsdn.microsoft.com%2Fquery%2Fdev16.query%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(LNK2005)%26rd%3Dtrue&view=vs-2019
 inline void addEmployee(Company *comp) {
 	LOG("Adding an employee");
 }
