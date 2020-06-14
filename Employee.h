@@ -51,7 +51,12 @@ public:
 
 };
 
+#include "Manager.h" // Including here to avoid compiler errors
 // Add an employee to company
 inline void addEmployee(Company *comp) {
-	LOG("Adding an employee");
+	LOG("Adding an employee (manager for now)");
+	std::string employeeType = "hourly";
+	Manager m;
+	m.getPayDay();
+
 }

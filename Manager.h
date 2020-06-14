@@ -1,7 +1,10 @@
+#pragma once
 #include <string>
-#include "Employee.h"
+//#include "Employee.h"
 #include "BaseException.h"
 #include "Log.h"
+
+class Employee;
 
 // Checks if pointer is of a certain type
 template<typename Base, typename T>
@@ -9,11 +12,17 @@ inline bool instanceof(const T* ptr) {
 	return dynamic_cast<const Base*>(ptr) != nullptr;
 }
 
-class Manager : Employee {
+class Manager : public Employee {
 private:
 	double monthlySalary;
 	std::string role;
 public:
+	Manager(int id, int pd, std::string cn, Department dep, double sal, std::string r) {
+		this->monthlySalary = sal;
+		this->role = r;
+	}
+	Manager() {}
+
 	void setRole(std::string r) {
 		role = r;
 	}
