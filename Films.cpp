@@ -16,7 +16,7 @@ struct Films {
 	double calculateTotalSpent() {
 		// Find the overall budget on all films
 		double sum = 0;
-		for (int i = 0; i < filmList.size(); i++) {
+		for (int i = 0; i < (int)filmList.size(); i++) {
 			sum += filmList.at(i).getBudget();
 		}
 		return 0;

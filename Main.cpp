@@ -9,11 +9,11 @@
 #include "Department.h"
 
 
-void companyHierarchy(Company *comp);
+void companyManagement(Company *comp);
 void financesManage();
 void filmsManage();
 
-void showBanner(string name) {
+void showBanner(std::string name) {
     LOG("******************************************************");
     LOG("*********"<< name <<"**********");
     LOG("******************************************************");
@@ -29,7 +29,7 @@ int main()
     //Sleep(5000);
     //system("cls");
     while (true) {
-        LOG("1. Company Hierarchy");
+        LOG("1. Company Management");
         LOG("2. Finances");
         LOG("3. Films");
         LOG("4. Quit");
@@ -39,7 +39,7 @@ int main()
         if (selectedOption == 1) {
             // Company Hierarchy
             // Pass reference to company object
-            companyHierarchy(&company);
+            companyManagement(&company);
         }
         else if (selectedOption == 2) {
             // Finances
@@ -63,7 +63,7 @@ int main()
 }
 
 
-void companyHierarchy(Company *companyRef) {
+void companyManagement(Company *companyRef) {
     // companyRef is a pointer, we use &companyRef to access object
     system("cls");
     while (true) {
