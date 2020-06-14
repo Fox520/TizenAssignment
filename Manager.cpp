@@ -12,12 +12,12 @@ inline bool instanceof(const T* ptr) {
 class Manager : Employee {
 private:
 	double monthlySalary;
-	string role;
+	std::string role;
 public:
-	void setRole(string r) {
+	void setRole(std::string r) {
 		role = r;
 	}
-	string getRole() { return role; }
+	std::string getRole() { return role; }
 
 	void raiseSalary(Employee* e, double amount) {
 		// Check if the employee is a manager

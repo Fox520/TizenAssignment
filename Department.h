@@ -1,20 +1,17 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Company.h"
 
 class Employee;
-
-
-using namespace std;
+class Company;
 
 class Department {
 private:
-	string deptName;
-	vector<Employee*>employeeList;
+	std::string deptName;
+	std::vector<Employee*>employeeList;
 public:
-	string getDeptName() { return deptName; }
-	void setDeptName(string name) { deptName = name; }
+	std::string getDeptName() { return deptName; }
+	void setDeptName(std::string name) { deptName = name; }
 
 	// Can't pass abstract class by value, use reference or pointer
 	void addEmployee(Employee* e) {
@@ -22,7 +19,7 @@ public:
 	}
 
 	void removeEmployee(Employee* e) {
-		for (int i = 0; i < employeeList.size(); i++) {
+		for (int i = 0; i < (int)employeeList.size(); i++) {
 			// Compare if addresses are the same
 			if (employeeList.at(i) == e) {
 				// Remove Employee pointer from vector
@@ -31,7 +28,7 @@ public:
 		}
 	}
 
-	vector<Employee*> getEmployees() {
+	std::vector<Employee*> getEmployees() {
 		return employeeList;
 	}
 	~Department() {
@@ -40,6 +37,6 @@ public:
 };
 
 // Add an department to company
-void addDepartment(Company* comp) {
-	
+inline void addDepartment(Company *comp) {
+	LOG("Adding a department");
 }

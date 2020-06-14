@@ -1,16 +1,21 @@
-#include "Department.h"
+#pragma once
+#include <iostream>
 #include <string>
+#include <vector>
+
+// Forward declaration
+class Department;
 
 class Company {
 private:
-	string companyName;
+	std::string companyName;
 	std::vector<Department*> departmentList;
 public:
 	/* Copy constructor */
 	Company(const Company& com)
 	{
-		companyName = com.companyName;
-		departmentList = com.departmentList;
+		this -> companyName = com.companyName;
+		this -> departmentList = com.departmentList;
 	}
 
 	// Normal constructor
@@ -18,10 +23,10 @@ public:
 
 	}
 
-	void setCompanyName(string n) {
+	void setCompanyName(std::string n) {
 		companyName = n;
 	}
-	string getCompanyName() { return companyName; }
+	std::string getCompanyName() { return companyName; }
 
 	std::vector<Department*> getDepartments() { return departmentList; }
 
@@ -29,7 +34,7 @@ public:
 		departmentList.push_back(d);
 	}
 	void removeDepartment(Department* d) {
-		for (int i = 0; i < departmentList.size(); i++) {
+		for (int i = 0; i < (int)departmentList.size(); i++) {
 			// Compare if addresses are the same
 			if (departmentList.at(i) == d) {
 				// Remove Department pointer from vector

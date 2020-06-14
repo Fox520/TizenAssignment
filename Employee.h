@@ -1,24 +1,23 @@
 #pragma once
 #include <string>
-
+#include "Log.h"
 #include "Department.h"
 #include "Company.h"
 
-using namespace std;
 // Forward declaration
 class Department;
 // Abstract class
 class Employee {
 private:
 	int _empID, _payDay;
-	string _compName;
+	std::string _compName;
 	Department _dept;
 	bool _isEmployed = true;
 public:
 	virtual void setIncentive(double amount) = 0;
 	virtual double getIncentive() = 0;
-	void setCompany(string name) { _compName = name; };
-	string getCompany() { return _compName; }
+	void setCompany(std::string name) { _compName = name; };
+	std::string getCompany() { return _compName; }
 
 	bool setEmployeeID(int num) {
 		if (num > 0) {
@@ -51,6 +50,7 @@ public:
 };
 
 // Add an employee to company
-void addEmployee(Company* comp) {
-	
+// https://docs.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk2005?f1url=https%3A%2F%2Fmsdn.microsoft.com%2Fquery%2Fdev16.query%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(LNK2005)%26rd%3Dtrue&view=vs-2019
+inline void addEmployee(Company *comp) {
+	LOG("Adding an employee");
 }
