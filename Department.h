@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Company.h"
+
 class Employee;
 
 
@@ -36,3 +38,8 @@ public:
 		employeeList.clear();
 	}
 };
+
+// Add an department to company
+void addDepartment(Company* comp) {
+	
+}

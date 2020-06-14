@@ -2,23 +2,31 @@
 #include <windows.h>
 #include "Date.h"
 #include "Log.h"
+#include <string>
 #include "Company.h"
+#include "BaseException.h"
+#include "Employee.h"
+#include "Department.h"
 
-void companyHierarchy();
+
+void companyHierarchy(Company *comp);
 void financesManage();
 void filmsManage();
 
-void showBanner() {
+void showBanner(string name) {
     LOG("******************************************************");
-    LOG("*********Tizen Productions Management System**********");
+    LOG("*********"<< name <<"**********");
     LOG("******************************************************");
 
 }
 
 int main()
 {
-    //showBanner();
-    ///Sleep(5000);
+    // Create default company
+    Company company = Company();
+    company.setCompanyName("Tizen Productions Management System");
+    //showBanner(company.getCompanyName());
+    //Sleep(5000);
     //system("cls");
     while (true) {
         LOG("1. Company Hierarchy");
@@ -30,7 +38,8 @@ int main()
         std::cin >> selectedOption;
         if (selectedOption == 1) {
             // Company Hierarchy
-            companyHierarchy();
+            // Pass reference to company object
+            companyHierarchy(&company);
         }
         else if (selectedOption == 2) {
             // Finances
@@ -54,7 +63,8 @@ int main()
 }
 
 
-void companyHierarchy() {
+void companyHierarchy(Company *companyRef) {
+    // companyRef is a pointer, we use &companyRef to access object
     system("cls");
     while (true) {
         LOG("1. Departments");
@@ -66,9 +76,59 @@ void companyHierarchy() {
         std::cin >> selectedOption;
         if (selectedOption == 1) {
             // Departments
+            while (true) {
+                LOG("1. List departments");
+                LOG("2. Add department");
+                LOG("3. Manage department");
+                LOG("4. Go Back");
+                std::cout << "> ";
+                int dOption;
+                std::cin >> dOption;
+                if (dOption == 1) {
+                    // List departments
+                    addDepartment(companyRef);
+                }
+                else if (dOption == 2) {
+                    // Add department
+                }
+                else if (dOption == 3) {
+                    // Manage department
+                }
+                else if (dOption == 4) {
+                    // Go back
+                    system("cls");
+                    break;
+                }
+                else {
+                    LOG("Please select a valid option.");
+                }
+            }
         }
         else if (selectedOption == 2) {
             // Employees
+            while (true) {
+                LOG("1. Add employee");
+                LOG("2. Show employees");
+                LOG("3. Go Back");
+                std::cout << "> ";
+                int eOption;
+                std::cin >> eOption;
+                if (eOption == 1) {
+                    // Add employee
+                    addEmployee(companyRef);
+                }
+                else if (eOption == 2) {
+                    // List employees
+                }
+                else if (eOption == 3) {
+                    // Go back
+                    system("cls");
+                    break;
+                }
+                else {
+                    LOG("Please select a valid option.");
+                }
+            }
         }
         else if (selectedOption == 3) {
             // Restructure

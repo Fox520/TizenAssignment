@@ -6,6 +6,18 @@ private:
 	string companyName;
 	std::vector<Department*> departmentList;
 public:
+	/* Copy constructor */
+	Company(const Company& com)
+	{
+		companyName = com.companyName;
+		departmentList = com.departmentList;
+	}
+
+	// Normal constructor
+	Company() {
+
+	}
+
 	void setCompanyName(string n) {
 		companyName = n;
 	}

@@ -138,7 +138,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Employee.cpp" />
     <ClCompile Include="Films.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Manager.cpp" />

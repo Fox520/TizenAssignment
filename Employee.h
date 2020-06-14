@@ -2,6 +2,7 @@
 #include <string>
 
 #include "Department.h"
+#include "Company.h"
 
 using namespace std;
 // Forward declaration
@@ -48,3 +49,8 @@ public:
 	int getPayDay() { return _payDay; }
 
 };
+
+// Add an employee to company
+void addEmployee(Company* comp) {
+	
+}
