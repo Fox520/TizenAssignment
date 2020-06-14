@@ -55,7 +55,5 @@ public:
 inline void addEmployee(Company *comp) {
 	LOG("Adding an employee (manager for now)");
 	std::string employeeType = "hourly";
-	Manager m;
-	m.getPayDay();
 
 }

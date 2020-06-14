@@ -10,6 +10,11 @@ private:
 	std::string deptName;
 	std::vector<Employee*>employeeList;
 public:
+
+	Department(std::string deptName) {
+		this->deptName = deptName;
+	}
+
 	std::string getDeptName() { return deptName; }
 	void setDeptName(std::string name) { deptName = name; }
 
@@ -38,5 +43,10 @@ public:
 
 // Add an department to company
 inline void addDepartment(Company *comp) {
-	LOG("Adding a department");
+	LOG("Enter department name:");
+	std::cout << "> ";
+	std::string dname;
+	std::cin >> dname;
+	Department d = Department(dname);
+	comp->addDepartment(&d);
 }

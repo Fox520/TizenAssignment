@@ -17,11 +17,10 @@ private:
 	double monthlySalary;
 	std::string role;
 public:
-	Manager(int id, int pd, std::string cn, Department dep, double sal, std::string r) {
-		this->monthlySalary = sal;
-		this->role = r;
-	}
-	Manager() {}
+	//Manager(int id, int pd, std::string cn, Department dep, double sal, std::string r) {
+	//	this->monthlySalary = sal;
+	//	this->role = r;
+	//}
 
 	void setRole(std::string r) {
 		role = r;

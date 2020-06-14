@@ -86,10 +86,14 @@ void companyManagement(Company *companyRef) {
                 std::cin >> dOption;
                 if (dOption == 1) {
                     // List departments
-                    addDepartment(companyRef);
+                    for (Department* dep : companyRef->getDepartments()) {
+                        LOG(dep->getDeptName());
+                    }
+                    LOG("...");
                 }
                 else if (dOption == 2) {
                     // Add department
+                    addDepartment(companyRef);
                 }
                 else if (dOption == 3) {
                     // Manage department
