@@ -49,8 +49,13 @@ public:
 
 };
 
+#include "Manager.h" // Including here to avoid compiler errors
 // Add an employee to company
 // https://docs.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk2005?f1url=https%3A%2F%2Fmsdn.microsoft.com%2Fquery%2Fdev16.query%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(LNK2005)%26rd%3Dtrue&view=vs-2019
 inline void addEmployee(Company *comp) {
-	LOG("Adding an employee");
+	LOG("Adding an employee (manager for now)");
+	std::string employeeType = "hourly";
+	Manager m;
+	m.getPayDay();
+
 }
