@@ -19,6 +19,8 @@ public:
 		this->deptName = deptName;
 	}
 
+	Department(){}
+
 	String getDeptName() { return deptName; }
 
 	void setDeptName(String name) { deptName = name; }
@@ -106,6 +108,15 @@ inline bool checkIfDeptExist(Company& c, String d) {
 		// Compare if departments are the same
 		if (c.getDepartments().at(i)->getDeptName() == d) {
 			return true;
+		}
+	}
+}
+
+inline Department* getDept(Company& c, String d) {
+	for (int i = 0; i < (int)c.getDepartments().size(); i++) {
+		// Compare if departments are the same
+		if (c.getDepartments().at(i)->getDeptName() == d) {
+			return c.getDepartments().at(i);
 		}
 	}
 }

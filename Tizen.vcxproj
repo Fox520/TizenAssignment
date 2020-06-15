@@ -138,14 +138,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Films.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseException.h" />
     <ClInclude Include="Company.h" />
     <ClInclude Include="Date.h" />
-    <ClInclude Include="Department.h" />
+    <ClInclude Include="DepartmentCompany.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Film.h" />
     <ClInclude Include="Log.h" />

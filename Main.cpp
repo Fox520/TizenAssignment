@@ -5,6 +5,8 @@
 #include <string>
 #include "BaseException.h"
 #include "Employee.h"
+#include "Manager.h"
+#include "Film.h"
 #include "DepartmentCompany.h"
 
 
@@ -27,6 +29,8 @@ int main()
     //showBanner(company.getCompanyName());
     //Sleep(5000);
     //system("cls");
+    
+    
     while (true) {
         LOG("1. Company Management");
         LOG("2. Finances");
@@ -68,8 +72,7 @@ void companyManagement(Company& companyRef) {
     while (true) {
         LOG("1. Departments");
         LOG("2. Employees");
-        LOG("3. Restructure");
-        LOG("4. Go Back");
+        LOG("3. Go Back");
         std::cout << "> ";
         int selectedOption;
         std::cin >> selectedOption;
@@ -104,21 +107,25 @@ void companyManagement(Company& companyRef) {
                     if (checkIfDeptExist(companyRef, dname)) {
                         while (true) {
                             LOG("1. List employees");
-                            LOG("2. Add employee");
-                            LOG("3. Go Back");
+                            LOG("2. Go Back");
                             std::cout << "> ";
                             int dop;
                             std::cin >> dop;
                             if (dop == 1) {
                                 // List employees
                                 LOG("Listing employees");
+                                Department* dep = getDept(companyRef, dname);
+                                for (int i = 0; i < (int)dep->getEmployees().size(); i++) {
+                                    LOG("***************************************");
+                                    LOG("Employee #" << i);
+                                    LOG("ID: " << dep->getEmployees().at(i)->getEmployeeID());
+                                    LOG("Incentive: " << dep->getEmployees().at(i)->getIncentive());
+                                    LOG("Pay Day: " << dep->getEmployees().at(i)->getPayDay());
+                                    LOG("***************************************");
+                                }
                                 
                             }
                             else if (dop == 2) {
-                                // Add employee
-                                LOG("Adding employee");
-                            }
-                            else if (dop == 3) {
                                 // Go back
                                 break;
                             }
@@ -145,19 +152,15 @@ void companyManagement(Company& companyRef) {
             // Employees
             while (true) {
                 LOG("1. Add employee");
-                LOG("2. Show employees");
-                LOG("3. Go Back");
+                LOG("2. Go Back");
                 std::cout << "> ";
                 int eOption;
                 std::cin >> eOption;
                 if (eOption == 1) {
                     // Add employee
-                   // addEmployee(companyRef);
+                   addEmployee(companyRef);
                 }
                 else if (eOption == 2) {
-                    // List employees
-                }
-                else if (eOption == 3) {
                     // Go back
                     system("cls");
                     break;
@@ -168,9 +171,6 @@ void companyManagement(Company& companyRef) {
             }
         }
         else if (selectedOption == 3) {
-            // Restructure
-        }
-        else if (selectedOption == 4) {
             // Go Back
             system("cls");
             break;
