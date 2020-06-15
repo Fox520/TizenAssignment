@@ -3,13 +3,13 @@
 #include "Date.h"
 #include "Log.h"
 #include <string>
-#include "Company.h"
+//#include "Company.h"
 #include "BaseException.h"
 #include "Employee.h"
 #include "Department.h"
 
 
-void companyManagement(Company *comp);
+void companyManagement(Company& comp);
 void financesManage();
 void filmsManage();
 
@@ -23,8 +23,8 @@ void showBanner(std::string name) {
 int main()
 {
     // Create default company
-    Company company = Company();
-    company.setCompanyName("Tizen Productions Management System");
+    Company* company = new Company();
+    company->setCompanyName("Tizen Productions Management System");
     //showBanner(company.getCompanyName());
     //Sleep(5000);
     //system("cls");
@@ -39,7 +39,7 @@ int main()
         if (selectedOption == 1) {
             // Company Hierarchy
             // Pass reference to company object
-            companyManagement(&company);
+            companyManagement(*company);
         }
         else if (selectedOption == 2) {
             // Finances
@@ -63,7 +63,7 @@ int main()
 }
 
 
-void companyManagement(Company *companyRef) {
+void companyManagement(Company& companyRef) {
     // companyRef is a pointer, we use &companyRef to access object
     system("cls");
     while (true) {
@@ -86,10 +86,9 @@ void companyManagement(Company *companyRef) {
                 std::cin >> dOption;
                 if (dOption == 1) {
                     // List departments
-                    for (Department* dep : companyRef->getDepartments()) {
+                    for (Department* dep : companyRef.getDepartments()) {
                         LOG(dep->getDeptName());
                     }
-                    LOG("...");
                 }
                 else if (dOption == 2) {
                     // Add department
@@ -97,6 +96,41 @@ void companyManagement(Company *companyRef) {
                 }
                 else if (dOption == 3) {
                     // Manage department
+                    for (Department* dep : companyRef.getDepartments()) {
+                        LOG(dep->getDeptName());
+                    }
+                    std::cout << "Department Name> ";
+                    std::string dname;
+                    std::cin >> dname;
+                    if (checkIfDeptExist(companyRef, dname)) {
+                        while (true) {
+                            LOG("1. List employees");
+                            LOG("2. Add employee");
+                            LOG("3. Go Back");
+                            std::cout << "> ";
+                            int dop;
+                            std::cin >> dop;
+                            if (dop == 1) {
+                                // List employees
+                                LOG("Listing employees");
+                                
+                            }
+                            else if (dop == 2) {
+                                // Add employee
+                                LOG("Adding employee");
+                            }
+                            else if (dop == 3) {
+                                // Go back
+                                break;
+                            }
+                            else {
+                                LOG("Please select a valid option.");
+                            }
+                        }
+                    }
+                    else {
+                        LOG("Department was not found, please try again.");
+                    }
                 }
                 else if (dOption == 4) {
                     // Go back
@@ -119,7 +153,7 @@ void companyManagement(Company *companyRef) {
                 std::cin >> eOption;
                 if (eOption == 1) {
                     // Add employee
-                    addEmployee(companyRef);
+                   // addEmployee(companyRef);
                 }
                 else if (eOption == 2) {
                     // List employees

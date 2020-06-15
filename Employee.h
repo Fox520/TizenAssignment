@@ -2,7 +2,7 @@
 #include <string>
 #include "Log.h"
 #include "Department.h"
-#include "Company.h"
+//#include "Company.h"
 
 // Forward declaration
 class Department;

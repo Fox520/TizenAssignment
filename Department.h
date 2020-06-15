@@ -1,22 +1,27 @@
 #pragma once
 #include <string>
+#include <iostream>
+#include <string>
 #include <vector>
+
+using String = std::string;
 
 class Employee;
 class Company;
 
 class Department {
 private:
-	std::string deptName;
+	String deptName;
 	std::vector<Employee*>employeeList;
 public:
 
-	Department(std::string deptName) {
+	Department(String deptName) {
 		this->deptName = deptName;
 	}
 
-	std::string getDeptName() { return deptName; }
-	void setDeptName(std::string name) { deptName = name; }
+	String getDeptName() { return deptName; }
+
+	void setDeptName(String name) { deptName = name; }
 
 	// Can't pass abstract class by value, use reference or pointer
 	void addEmployee(Employee* e) {
@@ -36,17 +41,71 @@ public:
 	std::vector<Employee*> getEmployees() {
 		return employeeList;
 	}
+
+	
+	bool operator==(Department& other) const {
+		return this->deptName == other.getDeptName();  // Compare the values, and return a bool result.
+	}
+
 	~Department() {
 		employeeList.clear();
 	}
 };
 
+class Company {
+private:
+	std::string companyName;
+	std::vector<Department*> departmentList;
+public:
+	/* Copy constructor */
+	Company(const Company& com)
+	{
+		this->companyName = com.companyName;
+		this->departmentList = com.departmentList;
+	}
+
+	// Normal constructor
+	Company() {
+
+	}
+
+	void setCompanyName(std::string n) {
+		companyName = n;
+	}
+	std::string getCompanyName() { return companyName; }
+
+	std::vector<Department*> getDepartments() { return departmentList; }
+
+	void addDepartment(Department& d) {
+		departmentList.push_back(&d);
+	}
+	void removeDepartment(Department& d) {
+		for (int i = 0; i < (int)departmentList.size(); i++) {
+			// Compare if departments are the same
+			if (*departmentList.at(i) == d) {
+				// Remove Department pointer from vector
+				departmentList.erase(departmentList.begin() + i);
+			}
+		}
+	}
+};
+
 // Add an department to company
-inline void addDepartment(Company *comp) {
+inline void addDepartment(Company& comp) {
 	LOG("Enter department name:");
 	std::cout << "> ";
 	std::string dname;
 	std::cin >> dname;
-	Department d = Department(dname);
-	comp->addDepartment(&d);
+	
+	Department* d = new Department(dname);
+	comp.addDepartment(*d);
+}
+
+inline bool checkIfDeptExist(Company& c, String d) {
+	for (int i = 0; i < (int)c.getDepartments().size(); i++) {
+		// Compare if departments are the same
+		if (c.getDepartments().at(i)->getDeptName() == d) {
+			return true;
+		}
+	}
 }

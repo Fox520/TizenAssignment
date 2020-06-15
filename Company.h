@@ -2,14 +2,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "Department.h"
 // Forward declaration
 class Department;
 
 class Company {
 private:
 	std::string companyName;
-	std::vector<Department*> departmentList;
+	std::vector<Department> departmentList;
 public:
 	/* Copy constructor */
 	Company(const Company& com)
@@ -28,12 +28,12 @@ public:
 	}
 	std::string getCompanyName() { return companyName; }
 
-	std::vector<Department*> getDepartments() { return departmentList; }
+	std::vector<Department> getDepartments() { return departmentList; }
 
-	void addDepartment(Department* d) {
+	void addDepartment(Department d) {
 		departmentList.push_back(d);
 	}
-	void removeDepartment(Department* d) {
+	void removeDepartment(Department d) {
 		for (int i = 0; i < (int)departmentList.size(); i++) {
 			// Compare if addresses are the same
 			if (departmentList.at(i) == d) {
