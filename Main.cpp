@@ -3,10 +3,9 @@
 #include "Date.h"
 #include "Log.h"
 #include <string>
-//#include "Company.h"
 #include "BaseException.h"
 #include "Employee.h"
-#include "Department.h"
+#include "DepartmentCompany.h"
 
 
 void companyManagement(Company& comp);

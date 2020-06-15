@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
 #include "Log.h"
-#include "Department.h"
-//#include "Company.h"
+#include "DepartmentCompany.h"
 
 // Forward declaration
 class Department;
