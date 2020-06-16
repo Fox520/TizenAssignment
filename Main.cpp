@@ -121,7 +121,7 @@ void companyManagement(Company& companyRef) {
                                     LOG("***************************************");
                                     LOG("Employee #" << i);
                                     LOG("ID: " << dep->getEmployees().at(i)->getEmployeeID());
-                                    LOG("Incentive: " << dep->getEmployees().at(i)->getIncentive());
+                                    LOG("Incentive: " << dep->getEmployees().at(i)->getPayment());
                                     LOG("Pay Day: " << dep->getEmployees().at(i)->getPayDay());
                                     LOG("***************************************");
                                 }
@@ -209,7 +209,7 @@ void financesManage(Company& companyRef, Films& films) {
                 // Calculate overall salary for department
                 double total = 0;
                 for (int i = 0; i < (int)dep->getEmployees().size(); i++) {
-                    total += dep->getEmployees().at(i)->getIncentive();
+                    total += dep->getEmployees().at(i)->getPayment();
                 }
                 LOG(dep->getDeptName() << " total salaries: " << total);
             }
