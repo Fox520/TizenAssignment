@@ -1,11 +1,22 @@
 #pragma once
+#include <string>
 class Date {
 private:
-	int _day, _month, _year;
+	int _day=-1, _month=-1, _year=-1;
 public:
 	int getDay() { return _day; }
 	int getMonth() { return _month; }
 	int getYear() { return _year; }
+
+	std::string display() {
+		return std::to_string(_day) + "/"+ std::to_string(_month)+"/"+ std::to_string(_year);
+	}
+
+	Date(int d, int m, int y) {
+		setDate(d, m, y);
+	}
+
+	Date(){}
 
 	bool setDay(int d) {
 		if (d > 0 && d < 32) {

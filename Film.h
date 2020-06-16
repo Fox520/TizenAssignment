@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Date.h"
+#include "Log.h"
 
 using namespace std;
 
@@ -12,6 +13,16 @@ private:
 	double _budget;
 	Date _expectedDate;
 public:
+	void prettyPrint() {
+		LOG("Title: " << _title);
+		LOG("Director: " << _director);
+		LOG("Crew size: " << _crewSize);
+		LOG("Budget: " << _budget);
+		LOG("Expected Date: " << _expectedDate.display());
+		LOG("Script: " << _script);
+		LOG("Title: "<< _title);
+	}
+
 	void setTitle(string t) {
 		_title = t;
 	}
@@ -58,7 +69,7 @@ public:
 
 	string getScript() { return _script; }
 
-	Film(string title, double budget, string director, Date expected, string script = "", int crew = 1) {
+	Film(string title, double budget, string director, Date& expected, string script = "", int crew = 1) {
 		// Use setters which will perform checks
 		setTitle(title);
 		setBudget(budget);
@@ -71,11 +82,11 @@ public:
 
 struct Films {
 
-	void addFilm(Film f) {
-		filmList.push_back(f);
+	void addFilm(Film& f) {
+		filmList.push_back(&f);
 	}
 
-	vector<Film> getFilms() { return filmList; }
+	vector<Film*> getFilms() { return filmList; }
 
 	void clearFilms() {
 		filmList.clear();
@@ -85,11 +96,11 @@ struct Films {
 		// Find the overall budget on all films
 		double sum = 0;
 		for (int i = 0; i < (int)filmList.size(); i++) {
-			sum += filmList.at(i).getBudget();
+			sum += filmList.at(i)->getBudget();
 		}
 		return 0;
 	}
 
 private:
-	vector<Film> filmList;
+	vector<Film*> filmList;
 };

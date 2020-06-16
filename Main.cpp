@@ -11,8 +11,8 @@
 
 
 void companyManagement(Company& comp);
-void financesManage();
-void filmsManage();
+void financesManage(Company& companyRef, Films& films);
+void filmsManage(Films& films);
 
 void showBanner(std::string name) {
     LOG("******************************************************");
@@ -26,6 +26,8 @@ int main()
     // Create default company
     Company* company = new Company();
     company->setCompanyName("Tizen Productions Management System");
+    Films* films = new Films();
+
     //showBanner(company.getCompanyName());
     //Sleep(5000);
     //system("cls");
@@ -46,11 +48,11 @@ int main()
         }
         else if (selectedOption == 2) {
             // Finances
-            financesManage();
+            financesManage(*company, *films);
         }
         else if (selectedOption == 3) {
             // Films
-            filmsManage();
+            filmsManage(*films);
         }
         else if (selectedOption == 4) {
             // Quit
@@ -183,11 +185,11 @@ void companyManagement(Company& companyRef) {
 }
 
 
-void financesManage() {
+void financesManage(Company& companyRef, Films& films) {
     system("cls");
     while (true) {
         LOG("1. Increase Employee Salary");
-        LOG("2. See where's most money being spent?");
+        LOG("2. Show usage of money");
         LOG("3. Go Back");
         std::cout << "> ";
         int selectedOption;
@@ -196,7 +198,21 @@ void financesManage() {
             // Increase salary
         }
         else if (selectedOption == 2) {
-            // See where most meny being spent
+            // See where money is being spent
+            LOG("FILMS");
+            for (int i = 0; i < (int)films.getFilms().size(); i++) {
+                LOG(films.getFilms().at(i)->getTitle()<<" has budget of "<< films.getFilms().at(i)->getBudget());
+            }
+            LOG("***********************************");
+            LOG("EMPLOYEES");
+            for (Department* dep : companyRef.getDepartments()) {
+                // Calculate overall salary for department
+                double total = 0;
+                for (int i = 0; i < (int)dep->getEmployees().size(); i++) {
+                    total += dep->getEmployees().at(i)->getIncentive();
+                }
+                LOG(dep->getDeptName() << " total salaries: " << total);
+            }
         }
         else if (selectedOption == 3) {
             // Go Back
@@ -206,13 +222,11 @@ void financesManage() {
         else {
             LOG("Please select a valid option");
         }
-        system("cls");
     }
 }
 
 
-
-void filmsManage() {
+void filmsManage(Films& films) {
     system("cls");
     while (true) {
         LOG("1. Add film");
@@ -223,9 +237,20 @@ void filmsManage() {
         std::cin >> selectedOption;
         if (selectedOption == 1) {
             // Add film
+            //Film(string title, double budget, string director, Date expected, string script = "", int crew = 1)
+            // TODO: prompt
+            Date* dobj = new Date(2, 5, 2019);
+            Film* f = new Film("Great Film", 50000, "Steven", *dobj, "script goes here", 5 );
+            films.addFilm(*f);
+            LOG("Film added successfully.");
         }
         else if (selectedOption == 2) {
             // Show films
+            for (int i = 0; i < (int)films.getFilms().size(); i++) {
+                LOG("***********************************");
+                films.getFilms().at(i)->prettyPrint();
+                LOG("***********************************");
+            }
         }
         else if (selectedOption == 3) {
             // Go Back
@@ -234,7 +259,8 @@ void filmsManage() {
         }
         else {
             LOG("Please select a valid option");
+            system("cls");
         }
-        system("cls");
+        
     }
 }
