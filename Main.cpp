@@ -1,4 +1,12 @@
+/*
+C++ Advanced Programming Assignment
+
+KR Maendo 217101461
+TN David 218057245
+
+*/
 #include <iostream>
+#include <fstream> // Writing to csv
 #include <windows.h>
 #include "Date.h"
 #include "Log.h"
@@ -28,9 +36,9 @@ int main()
     company->setCompanyName("Tizen Productions Management System");
     Films* films = new Films();
 
-    //showBanner(company.getCompanyName());
-    //Sleep(5000);
-    //system("cls");
+    showBanner(company->getCompanyName());
+    Sleep(5000);
+    system("cls");
     
     
     while (true) {
@@ -57,7 +65,7 @@ int main()
         else if (selectedOption == 4) {
             // Quit
             LOG("Good bye, have a nice day!");
-            exit(0);
+            break;
         }
         else {
             LOG("Please select a valid option");
@@ -65,6 +73,15 @@ int main()
         // Clear the console
         system("cls");
     }
+
+    // Save information to CSV upon exiting
+    for (int i = 0; i < (int)films->getFilms().size(); i++) {
+        std::ofstream myfile;
+        myfile.open("films.csv", std::ios_base::app);
+        myfile << films->getFilms().at(i)->getTitle() << ","<< films->getFilms().at(i)->getDate().display() <<","<< films->getFilms().at(i)->getBudget()<<","<< films->getFilms().at(i)->getScript() <<","<< films->getFilms().at(i)->getCrewSize()<<"\n";
+        myfile.close();
+    }
+
 }
 
 
@@ -237,10 +254,40 @@ void filmsManage(Films& films) {
         std::cin >> selectedOption;
         if (selectedOption == 1) {
             // Add film
-            //Film(string title, double budget, string director, Date expected, string script = "", int crew = 1)
-            // TODO: prompt
-            Date* dobj = new Date(2, 5, 2019);
-            Film* f = new Film("Great Film", 50000, "Steven", *dobj, "script goes here", 5 );
+            std::cout << "Title: ";
+            std::string ti;
+            std::cin >> ti;
+
+            std::cout << "Director: ";
+            std::string director;
+            std::cin >> director;
+
+            std::cout << "Budget: ";
+            double bu;
+            std::cin >> bu;
+
+            std::cout << "Crew size: ";
+            int cr;
+            std::cin >> cr;
+
+            std::cout << "Day expected: ";
+            int day;
+            std::cin >> day;
+
+            std::cout << "Month expected: ";
+            int month;
+            std::cin >> month;
+
+            std::cout << "Year expected: ";
+            int year;
+            std::cin >> year;
+
+            std::cout << "Script: ";
+            std::string sc;
+            std::cin >> sc;
+
+            Date* dobj = new Date(day, month, year);
+            Film* f = new Film(ti, bu, director, *dobj, sc, cr );
             films.addFilm(*f);
             LOG("Film added successfully.");
         }
