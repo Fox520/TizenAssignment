@@ -44,5 +44,11 @@
     <ClInclude Include="DepartmentCompany.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hourly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Salaried.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

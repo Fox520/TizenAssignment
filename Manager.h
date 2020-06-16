@@ -4,7 +4,7 @@
 #include "BaseException.h"
 #include "Log.h"
 
-class Employee;
+class Employee; // if you include this will the code between this line of code and the Manager class be necessary? Please do answer :)
 
 // Checks if pointer is of a certain type
 template<typename Base, typename T>
@@ -14,29 +14,8 @@ inline bool instanceof(const T* ptr) {
 
 class Manager : public Employee {
 private:
-	double monthlySalary;
-	std::string role;
 public:
-	Manager(int id, int pd, std::string dep, double sal, std::string r, Company& c) :Employee(id, pd, dep, c){
-		this->monthlySalary = sal;
-		this->role = r;
-	}
-
-	void setRole(std::string r) {
-		role = r;
-	}
-	std::string getRole() { return role; }
-
-	void setPayment(double amount) {
-		// Make sure salary is greater than 0
-		if (amount > 0) {
-			monthlySalary = amount;
-		}
-		else {
-			throw BaseException();
-		}
-	}
-	double getIncentive() {
-		return monthlySalary;
+	Manager(int id, int pd, std::string dep, double sal, std::string r, Company& c) :Employee(id, pd, dep, c, r) {
+		setPayment(sal);
 	}
 };

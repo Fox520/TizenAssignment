@@ -147,8 +147,10 @@
     <ClInclude Include="DepartmentCompany.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Film.h" />
+    <ClInclude Include="Hourly.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="Salaried.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

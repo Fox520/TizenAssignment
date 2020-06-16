@@ -6,22 +6,54 @@
 // Forward declaration
 class Department;
 // Abstract class
-class Employee {
+class Employee 
+{
 private:
 	int _empID=0, _payDay=0;
+	double payment;
 	std::string _compName = "Tizen Productions Management System";
 	std::string _deptName;
+	std::string _role;
 	bool _isEmployed = true;
 public:
-	virtual void setPayment(double amount) = 0;
-	virtual double getIncentive() = 0;
-	void setCompany(std::string name) { _compName = name; };
-	std::string getCompany() { return _compName; }
+	void setPayment(double amount) {
+		// Make sure salary is greater than 0
+		if (amount > 0) {
+			this->payment = amount;
+		}
+		else {
+			throw BaseException();
+		}
+	}
 
-	Employee(int id, int pd, std::string dn, Company& c) {
-		_empID = id;
+	double getPayment() 
+	{ 
+		return payment;
+	};
+
+	void setCompany(std::string name) 
+	{ 
+		_compName = name; 
+	};
+
+	std::string getCompany() 
+	{ 
+		return _compName; 
+	}
+
+	void setRole(std::string role) {
+		this->_role = role;
+	}
+
+	std::string getRole() {
+		return this->_role;
+	}
+
+	Employee(int id, int pd, std::string dn, Company& c, std::string role) {
+		setEmployeeID(id);
 		_payDay = pd;
 		setDepartment(dn, c);
+		setRole(role);
 	}
 
 	bool setEmployeeID(int num) {
@@ -68,12 +100,33 @@ public:
 };
 
 #include "Manager.h" // Including here to avoid compiler errors
+#include "Hourly.h"
+#include "Salaried.h"
 // Add an employee to company
 inline void addEmployee(Company& comp) {
 	LOG("Enter employee type: [manager, hourly, salaried]");
+	std::cout << "1. manager" << std::endl;
+	std::cout << "2. hourly" << std::endl;
+	std::cout << "3. salaried" << std::endl;
 	std::cout << "> ";
+	int choice;
+	std::cin >> choice;
 	std::string employeeType;
-	std::cin >> employeeType;
+	switch (choice)
+	{
+		case 1: 
+		employeeType = "manager";
+		break;
+		case 2: 
+			employeeType = "hourly";
+				break;
+		case 3: 
+			employeeType = "salaried";
+			break;
+	default:
+		LOG("The employee type that you are trying to enter is not on the System.");
+		break;
+	}
 	if (employeeType == "manager") {
 		//int id, int pd, std::string dep, double sal, std::string r, Company& c
 		std::cout <<"Employee ID [number]: ";
@@ -97,14 +150,58 @@ inline void addEmployee(Company& comp) {
 		std::cin >> r;
 
 		Manager* m = new Manager(id, pd, dep, sal, r, comp);
-		LOG("Manager added to system.")
+		LOG("Manager added to system!")
 
 	}
 	else if (employeeType == "hourly") {
+		std::cout << "Employee ID [number]: ";
+		int id;
+		std::cin >> id;
 
+		std::cout << "Pay Day [number]: ";
+		int pd;
+		std::cin >> pd;
+
+		std::cout << "Department Name: ";
+		std::string dep;
+		std::cin >> dep;
+
+		std::cout << "Hourly rate: ";
+		double rate;
+		std::cin >> rate;
+
+		std::cout << "Hours worked: " << std::endl;
+		int hours;
+		std::cin >> hours;
+
+		std::cout << "Role: ";
+		std::string r;
+		std::cin >> r;
+		Hourly* h = new Hourly(id, pd, dep, rate, hours , r, comp);
+		LOG("Hourly Employee added to system!");
 	}
 	else if (employeeType == "salaried") {
+		std::cout << "Employee ID [number]: ";
+		int id;
+		std::cin >> id;
 
+		std::cout << "Pay Day [number]: ";
+		int pd;
+		std::cin >> pd;
+
+		std::cout << "Department Name: ";
+		std::string dep;
+		std::cin >> dep;
+
+		std::cout << "Salary: ";
+		double sal;
+		std::cin >> sal;
+
+		std::cout << "Role: ";
+		std::string r;
+		std::cin >> r;
+		Salaried* s = new Salaried(id, pd, dep, sal, r, comp);
+		LOG("Salary Employee added to system!");
 	}
 	else {
 		LOG("Invalid option");
