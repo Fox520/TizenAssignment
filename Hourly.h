@@ -14,6 +14,7 @@ public:
 	Hourly(int id, int pd, std::string dep, double rate, int hours, std::string r, Company& comp) :Employee(id, pd, dep, comp, r) {
 		this->rate = rate;
 		this->hours = hours;
+		setTotalValue();
 	}
 
 	void setTotalValue() {

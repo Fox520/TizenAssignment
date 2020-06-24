@@ -6,7 +6,9 @@ TN David 218057245
 
 */
 #include <iostream>
-#include <fstream> // Writing to csv
+#include <sstream>
+#include <vector>
+#include <fstream>
 #include <windows.h>
 #include "Date.h"
 #include "Log.h"
@@ -21,11 +23,17 @@ TN David 218057245
 void companyManagement(Company& comp);
 void financesManage(Company& companyRef, Films& films);
 void filmsManage(Films& films);
+void loadFilms(Films& films);
+std::vector<std::string> split(std::string str, char sep);
 
 void showBanner(std::string name) {
     LOG("******************************************************");
     LOG("*********"<< name <<"**********");
     LOG("******************************************************");
+
+}
+
+void loadEmployees(Company& company) {
 
 }
 
@@ -35,9 +43,11 @@ int main()
     Company* company = new Company();
     company->setCompanyName("Tizen Productions Management System");
     Films* films = new Films();
+    // Load saved information
+    loadFilms(*films);
 
     showBanner(company->getCompanyName());
-    Sleep(5000);
+    //Sleep(5000);
     system("cls");
     
     
@@ -75,13 +85,31 @@ int main()
     }
 
     // Save information to CSV upon exiting
+    // Films
+    std::ofstream filmFile;
+    filmFile.open("films.csv", std::ios_base::app);
     for (int i = 0; i < (int)films->getFilms().size(); i++) {
-        std::ofstream myfile;
-        myfile.open("films.csv", std::ios_base::app);
-        myfile << films->getFilms().at(i)->getTitle() << ","<< films->getFilms().at(i)->getDate().display() <<","<< films->getFilms().at(i)->getBudget()<<","<< films->getFilms().at(i)->getScript() <<","<< films->getFilms().at(i)->getCrewSize()<<"\n";
-        myfile.close();
+        filmFile << films->getFilms().at(i)->getTitle() << ","<< films->getFilms().at(i)->getDate().display() <<","<< films->getFilms().at(i)->getBudget()<<","<< films->getFilms().at(i)->getScript() <<","<< films->getFilms().at(i)->getCrewSize()<< "," << films->getFilms().at(i)->getDirector()<<"\n";
     }
+    filmFile.close();
 
+    // Employees
+    // Loop through all departments writing the employees
+
+    std::vector<Department*> departmentList = company->getDepartments();
+    std::ofstream empFile;
+    empFile.open("employees.csv", std::ios_base::app);
+    
+    for (int i = 0; i < (int)departmentList.size(); i++) {
+        std::vector<Employee*> employees = departmentList.at(i)->getEmployees();
+        std::string deptName = departmentList.at(i)->getDeptName();
+
+        for (int i = 0; i < (int)employees.size(); i++) {
+            Employee* e = employees.at(i);
+            empFile << e->getEmployeeID()<<","<< e->getPayDay() << "," << e->getPayment() << ","<< e->getDepartment() << ","<<e->getRole()<<","<<e->isFired() << "\n";
+        }
+    }
+    empFile.close();
 }
 
 
@@ -250,48 +278,53 @@ void filmsManage(Films& films) {
         LOG("2. Show films");
         LOG("3. Go Back");
         std::cout << "> ";
-        int selectedOption;
-        std::cin >> selectedOption;
-        if (selectedOption == 1) {
+        std::string selectedOption;
+        std::getline(std::cin, selectedOption);
+        if (selectedOption == "1") {
             // Add film
             std::cout << "Title: ";
             std::string ti;
-            std::cin >> ti;
+            std::getline(std::cin, ti);
 
             std::cout << "Director: ";
             std::string director;
-            std::cin >> director;
+            std::getline(std::cin, director);
 
             std::cout << "Budget: ";
-            double bu;
-            std::cin >> bu;
+            std::string bu;
+            std::getline(std::cin, bu);
 
             std::cout << "Crew size: ";
-            int cr;
-            std::cin >> cr;
+            std::string cr;
+            //std::cin >> cr;
+            std::getline(std::cin, cr);
 
             std::cout << "Day expected: ";
-            int day;
-            std::cin >> day;
+            std::string day;
+            //std::cin >> day;
+            std::getline(std::cin, day);
 
             std::cout << "Month expected: ";
-            int month;
-            std::cin >> month;
+            std::string month;
+            //std::cin >> month;
+            std::getline(std::cin, month);
 
             std::cout << "Year expected: ";
-            int year;
-            std::cin >> year;
+            std::string year;
+            //std::cin >> year;
+            std::getline(std::cin, year);
 
             std::cout << "Script: ";
             std::string sc;
-            std::cin >> sc;
+            std::getline(std::cin, sc);
 
-            Date* dobj = new Date(day, month, year);
-            Film* f = new Film(ti, bu, director, *dobj, sc, cr );
+            Date* dobj = new Date(std::stoi(day), std::stoi(month), std::stoi(year));
+            Film* f = new Film(ti, std::stod(bu), director, *dobj, sc, std::stoi(cr) );
             films.addFilm(*f);
             LOG("Film added successfully.");
+            Sleep(2000);
         }
-        else if (selectedOption == 2) {
+        else if (selectedOption == "2") {
             // Show films
             for (int i = 0; i < (int)films.getFilms().size(); i++) {
                 LOG("***********************************");
@@ -299,15 +332,54 @@ void filmsManage(Films& films) {
                 LOG("***********************************");
             }
         }
-        else if (selectedOption == 3) {
+        else if (selectedOption == "3") {
             // Go Back
             system("cls");
             break;
         }
-        else {
-            LOG("Please select a valid option");
-            system("cls");
-        }
-        
+    }
+}
+
+
+std::vector<std::string> split(std::string str, char delimiter){
+
+    std::vector<std::string> vect;
+
+    std::stringstream ss(str);
+
+    for (std::string i; ss >> i;) {
+        vect.push_back(i);
+        if (ss.peek() == delimiter) {
+            ss.ignore();
+        }   
+    }
+    return vect;
+
+
+}
+
+void loadFilms(Films& films) {
+
+    std::ifstream file;
+    file.open("films.csv");
+    std::string title;
+    std::string date;
+    std::string script;
+    std::string budget;
+    std::string crewSize;
+    std::string director;
+
+    while (getline(file, title, ',')) {
+
+        getline(file, date, ',');
+        getline(file, budget, ',');
+        getline(file, script, ',');
+        getline(file, crewSize, ',');
+        getline(file, director, ',');
+
+        Date* expected = new Date(split(date, '/'));
+        // Create film object
+        Film* film = new Film(title, std::stod(budget), director, *expected, script, std::stoi(crewSize));
+        films.addFilm(*film);
     }
 }

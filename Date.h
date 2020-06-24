@@ -12,6 +12,10 @@ public:
 		return std::to_string(_day) + "/"+ std::to_string(_month)+"/"+ std::to_string(_year);
 	}
 
+	Date(std::vector<std::string> s) {
+	
+	}
+
 	Date(int d, int m, int y) {
 		setDate(d, m, y);
 	}

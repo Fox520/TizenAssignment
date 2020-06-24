@@ -147,7 +147,7 @@ inline void addEmployee(Company& comp) {
 
 		std::cout << "Role: ";
 		std::string r;
-		std::cin >> r;
+		std::getline(std::cin, r);
 
 		Manager* m = new Manager(id, pd, dep, sal, r, comp);
 		LOG("Manager added to system!")
@@ -164,19 +164,20 @@ inline void addEmployee(Company& comp) {
 
 		std::cout << "Department Name: ";
 		std::string dep;
-		std::cin >> dep;
+		std::getline(std::cin, dep);
 
 		std::cout << "Hourly rate: ";
 		double rate;
 		std::cin >> rate;
 
-		std::cout << "Hours worked: " << std::endl;
+		std::cout << "Hours worked: ";
 		int hours;
 		std::cin >> hours;
 
 		std::cout << "Role: ";
 		std::string r;
-		std::cin >> r;
+		std::getline(std::cin, r);
+
 		Hourly* h = new Hourly(id, pd, dep, rate, hours , r, comp);
 		LOG("Hourly Employee added to system!");
 	}
@@ -191,7 +192,7 @@ inline void addEmployee(Company& comp) {
 
 		std::cout << "Department Name: ";
 		std::string dep;
-		std::cin >> dep;
+		std::getline(std::cin, dep);
 
 		std::cout << "Salary: ";
 		double sal;
@@ -199,7 +200,8 @@ inline void addEmployee(Company& comp) {
 
 		std::cout << "Role: ";
 		std::string r;
-		std::cin >> r;
+		std::getline(std::cin, r);
+
 		Salaried* s = new Salaried(id, pd, dep, sal, r, comp);
 		LOG("Salary Employee added to system!");
 	}

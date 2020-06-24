@@ -110,6 +110,7 @@ inline bool checkIfDeptExist(Company& c, String d) {
 			return true;
 		}
 	}
+	return false;
 }
 
 inline Department* getDept(Company& c, String d) {
@@ -119,4 +120,5 @@ inline Department* getDept(Company& c, String d) {
 			return c.getDepartments().at(i);
 		}
 	}
+	return nullptr;
 }

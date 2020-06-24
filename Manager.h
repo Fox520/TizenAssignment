@@ -4,7 +4,7 @@
 #include "BaseException.h"
 #include "Log.h"
 
-class Employee; // if you include this will the code between this line of code and the Manager class be necessary? Please do answer :)
+//class Employee; // if you include this will the code between this line of code and the Manager class be necessary? Please do answer :)
 
 // Checks if pointer is of a certain type
 template<typename Base, typename T>

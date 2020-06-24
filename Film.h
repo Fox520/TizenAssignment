@@ -52,6 +52,8 @@ public:
 
 	double getBudget() { return _budget; }
 
+	string getDirector() { return _director; }
+
 	void setDate(Date d) {
 		// No need to perform checks as they're done in the Date class
 		_expectedDate = d;
