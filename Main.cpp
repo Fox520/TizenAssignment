@@ -24,16 +24,12 @@ void companyManagement(Company& comp);
 void financesManage(Company& companyRef, Films& films);
 void filmsManage(Films& films);
 void loadFilms(Films& films);
-std::vector<std::string> split(std::string str, char sep);
+std::vector<int> split(std::string str, char sep);
 
 void showBanner(std::string name) {
     LOG("******************************************************");
     LOG("*********"<< name <<"**********");
     LOG("******************************************************");
-
-}
-
-void loadEmployees(Company& company) {
 
 }
 
@@ -47,7 +43,7 @@ int main()
     loadFilms(*films);
 
     showBanner(company->getCompanyName());
-    //Sleep(5000);
+    Sleep(5000);
     system("cls");
     
     
@@ -341,13 +337,13 @@ void filmsManage(Films& films) {
 }
 
 
-std::vector<std::string> split(std::string str, char delimiter){
+std::vector<int> split(std::string str, char delimiter){
 
-    std::vector<std::string> vect;
+    std::vector<int> vect;
 
     std::stringstream ss(str);
 
-    for (std::string i; ss >> i;) {
+    for (int i; ss >> i;) {
         vect.push_back(i);
         if (ss.peek() == delimiter) {
             ss.ignore();
@@ -375,11 +371,15 @@ void loadFilms(Films& films) {
         getline(file, budget, ',');
         getline(file, script, ',');
         getline(file, crewSize, ',');
-        getline(file, director, ',');
+        getline(file, director, '\n');
 
         Date* expected = new Date(split(date, '/'));
         // Create film object
         Film* film = new Film(title, std::stod(budget), director, *expected, script, std::stoi(crewSize));
         films.addFilm(*film);
     }
+}
+
+void loadEmployees(Company& company) {
+
 }
